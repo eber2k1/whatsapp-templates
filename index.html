@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<!--
-This HTML document is a web page for managing templates. It includes a form for adding new templates, 
-a section for displaying available templates, and a footer. The page uses Tailwind CSS for styling 
-and Font Awesome for icons. JavaScript files are included at the end to manage the template store 
-and application logic. The page is responsive, utilizing grid layout for displaying templates in a 
-grid or list mode. The form contains fields for title, message, hashtag, and link. 
--->
 <html lang="en">
 
 <head>
@@ -25,10 +18,12 @@ grid or list mode. The form contains fields for title, message, hashtag, and lin
 
   <main class="container mx-auto p-6 grid gap-6 md:grid-cols-3">
     <!-- Formulario -->
+    <div id="alert-container" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 hidden bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg">
+        Plantilla eliminada correctamente.
+    </div>
     <section id="section-form-template" class="border border-green-800 rounded-lg bg-white shadow-lg p-6 md:col-span-1">
-
-      <form id="form-template" class="space-y-6 p-6 bg-white shadow-lg rounded-lg max-w-xl mx-auto">
-        <div>
+        <form id="form-template" class="space-y-6 p-6 bg-white shadow-lg rounded-lg max-w-xl mx-auto">
+            <div>
           <label for="title" class="block text-gray-800 font-semibold mb-2">Título</label>
           <input type="text" id="title" name="title"
             class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 placeholder-gray-500"

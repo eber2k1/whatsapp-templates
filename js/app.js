@@ -9,6 +9,10 @@ const formTemplate = document.querySelector("#form-template");
 const gridorlistModeButton = document.querySelector("#gridorlist-mode-button");
 const deleteTemplate = document.querySelector("#delete-template");
 
+
+/*
+EVENTOS
+*/
 // Evento submit del formulario para agregar una nueva plantilla
 formTemplate.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -29,6 +33,16 @@ templatesContainer.addEventListener("click", function (e) {
     if (e.target.classList.contains("delete-template")) {
         const templateTitle = e.target.dataset.title; // Obtener el título del template
         window.templatesStore.deleteTemplate(templateTitle);
+
+        // Mostrar alerta de éxito
+        const alertContainer = document.querySelector("#alert-container");
+        alertContainer.classList.remove("hidden");
+        alertContainer.textContent = "Plantilla eliminada correctamente.";
+
+        // Ocultar la alerta después de 3 segundos
+        setTimeout(() => {
+            alertContainer.classList.add("hidden");
+        }, 3000);
     }
 });
 
@@ -43,6 +57,40 @@ gridorlistModeButton.addEventListener("click", function () {
         : `<i class="fas fa-th-large"></i> Grid Mode`;
 });
 
+
+/* 
+FUNCIONES INDEPENDIENTES
+*/
+
+// Mensaje de plantillas vacía
+
+function templateEmpty() {
+    const templates = window.templatesStore.getState();
+
+    if (templates.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No hay plantillas disponibles";
+        emptyMessage.classList.add(
+            "text-center",         
+            "lg:text-5xl",        
+            "text-gray-700",       
+            "font-semibold",       
+            "bg-yellow-100",      
+            "border",              
+            "border-yellow-500",   
+            "px-8",                
+            "py-6",               
+            "rounded-lg",         
+            "shadow-xl",          
+            "mx-auto",            
+            "w-max"             
+        );
+
+        templatesContainer.classList.remove("grid", "list");
+        templatesContainer.classList.add("flex", "items-center", "justify-center", "md:h-1/2");  // Flexbox para centrar el mensaje en el contenedor
+        templatesContainer.appendChild(emptyMessage);
+    }
+}   
 
 // Función para renderizar las plantillas
 function renderTemplates() {
@@ -90,7 +138,7 @@ function renderTemplates() {
 }
 
 window.templatesStore.suscribe(renderTemplates);
-
+window.templatesStore.suscribe(templateEmpty);
 
 document.addEventListener("DOMContentLoaded", function () {
     window.templatesStore.initializeStore();

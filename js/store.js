@@ -42,7 +42,6 @@ function createStore(initialState = []) {
     // Suscribe un listener
     function suscribe(listener) {
         listeners.push(listener);
-
         return () => {
             const index = listeners.indexOf(listener);
             if (index > -1) {
