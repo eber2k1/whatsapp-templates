@@ -64,10 +64,10 @@ function renderTemplates() {
         message.classList.add("text-md", "text-gray-500");
         message.textContent = template.message;
         const hashTag = document.createElement("p");
-        hashTag.classList.add("text-sm", "mt-3", "text-green-800");
+        hashTag.classList.add("text-sm", "mt-3", "text-green-800", "font-bold");
         hashTag.textContent = template.hashTag;
         const link = document.createElement("a");
-        link.classList.add("text-sm", "mt-3", "text-green-800");
+        link.classList.add("text-sm", "mt-3", "text-green-500", "hover:text-green-700");
         link.href = template.link;
         link.textContent = template.link;
         const date = document.createElement("p");
