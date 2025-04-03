@@ -12,13 +12,13 @@ const deleteTemplate = document.querySelector("#delete-template");
 // Evento submit del formulario para agregar una nueva plantilla
 formTemplate.addEventListener("submit", function (e) {
     e.preventDefault();
-     const now = new Date();
-     // Formatear la fecha y hora
-     const today = now.toISOString().split("T")[0];
-     // Formatear la hora
-     const time = now.toTimeString().split(" ")[0];  
-     // Combinar la fecha y hora
-     const dateTime = `${today} ${time}`;
+    const now = new Date();
+    // Formatear la fecha y hora
+    const today = now.toISOString().split("T")[0];
+    // Formatear la hora
+    const time = now.toTimeString().split(" ")[0];
+    // Combinar la fecha y hora
+    const dateTime = `${today} ${time}`;
     window.templatesStore.addTemplate(
         new Template(title.value, message.value, hashTag.value, link.value, dateTime)
     );
@@ -31,7 +31,6 @@ templatesContainer.addEventListener("click", function (e) {
         window.templatesStore.deleteTemplate(templateTitle);
     }
 });
-
 
 // Evento click para cambiar el modo de visualización
 gridorlistModeButton.addEventListener("click", function () {
@@ -74,7 +73,9 @@ function renderTemplates() {
         date.classList.add("text-sm", "mt-3", "text-green-800");
         date.textContent = template.date;
         const deleteTemplate = document.createElement("button");
-        deleteTemplate.classList.add("delete-template", "text-sm", "mt-3", "text-green-800", "hover:bg-green-700", "hover:text-white");
+        deleteTemplate.classList.add(
+            "delete-template","text-sm","mt-3","text-white","bg-red-500","hover:bg-red-700","focus:outline-none","focus:ring-2","focus:ring-red-500","border","border-red-200","rounded-lg","shadow-lg","transition-all","px-4","py-2","text-center","font-medium","hover:text-white","active:bg-red-800"
+        );
         deleteTemplate.textContent = "Eliminar";
         deleteTemplate.dataset.title = template.title; // Agregar data-attribute
         li.appendChild(h4);
