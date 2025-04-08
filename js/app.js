@@ -7,6 +7,7 @@ const link = document.querySelector("#link");
 const formTemplate = document.querySelector("#form-template");
 
 const gridorlistModeButton = document.querySelector("#gridorlist-mode-button");
+const resetTemplates = document.querySelector("#reset-templates");
 const deleteTemplate = document.querySelector("#delete-template");
 
 
@@ -46,15 +47,33 @@ templatesContainer.addEventListener("click", function (e) {
     }
 });
 
+// Evento click para borrar plantillas
+resetTemplates.addEventListener("click", function() {
+    ResetTemplates();
+    const alertContainer = document.querySelector("#alert-Templates-delete");
+    alertContainer.classList.remove("hidden");
+    alertContainer.textContent = "Plantillas eliminadas correctamente.";
+    setTimeout(() => {
+      alertContainer.classList.add("hidden");
+    }, 3000);
+});
+
 // Evento click para cambiar el modo de visualización
 gridorlistModeButton.addEventListener("click", function () {
-    templatesContainer.classList.toggle("grid");
-    templatesContainer.classList.toggle("list");
-
     const isGridMode = templatesContainer.classList.contains("grid");
-    gridorlistModeButton.innerHTML = isGridMode
-        ? `<i class="fas fa-th-list"></i> List Mode`
-        : `<i class="fas fa-th-large"></i> Grid Mode`;
+
+    if (isGridMode) {
+        // Cambiar a modo lista
+        templatesContainer.classList.remove("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+        templatesContainer.classList.add("flex", "flex-col");
+        gridorlistModeButton.innerHTML = `<i class="fas fa-th-large"></i> Grid Mode`;
+    } else {
+        // Cambiar a modo grid
+        templatesContainer.classList.remove("flex", "flex-col");
+        templatesContainer.classList.add("grid", "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3");
+
+        gridorlistModeButton.innerHTML = `<i class="fas fa-th-list"></i> List Mode`;
+    }
 });
 
 
@@ -87,10 +106,12 @@ function templateEmpty() {
         );
 
         templatesContainer.classList.remove("grid", "list");
-        templatesContainer.classList.add("flex", "items-center", "justify-center", "md:h-1/2");  // Flexbox para centrar el mensaje en el contenedor
+        templatesContainer.classList.add("flex", "items-center", "justify-center", "md:h-1/2");
         templatesContainer.appendChild(emptyMessage);
-    }
-}   
+    } else {
+        templatesContainer.classList.remove("flex", "items-center", "justify-center", "md:h-1/2");
+      }
+}
 
 // Función para renderizar las plantillas
 function renderTemplates() {
@@ -139,7 +160,9 @@ function renderTemplates() {
 
 window.templatesStore.suscribe(renderTemplates);
 window.templatesStore.suscribe(templateEmpty);
+window.templatesStore.suscribe(saveTemplates);
+
 
 document.addEventListener("DOMContentLoaded", function () {
-    window.templatesStore.initializeStore();
+	window.templatesStore.initializeStore();
 });
