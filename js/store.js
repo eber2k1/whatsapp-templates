@@ -39,6 +39,13 @@ function createStore(initialState = []) {
         setState(newState);
     }
 
+    // Actualizar un template
+    function updateTemplate(templateTitle, newTemplate) {
+        const templates = getState();
+        const newState = templates.map((t) => (t.title === templateTitle ? newTemplate : t));
+        setState(newState);
+    } 
+
     // Suscribe un listener
     function suscribe(listener) {
         listeners.push(listener);
@@ -75,6 +82,7 @@ function createStore(initialState = []) {
         setState,
         addTemplate,
         deleteTemplate,
+        updateTemplate,
         suscribe,
         initializeStore,
     };
